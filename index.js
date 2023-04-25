@@ -4,23 +4,32 @@
 //input shouldnt be case sensitive
 
 const choices = ["rock", "paper", "scissors"];
-var computerChoice = Math.floor(Math.random() * 3);
+var computerChoice;
 var newComputerChoice;
 var computerPoints = 0;
 var userPoints = 0;
-var _userChoice = prompt("Please enter your name", "Harry Potter");
-// switch (computerChoice) {
-//   case 0:
-//     newComputerChoice = "rock";
+// var _userChoice = prompt("Please enter your name", "Harry Potter");
 
-//   case 1:
-//     newComputerChoice = "paper";
+function getComputerChoice() {
+  computerChoice = Math.floor(Math.random() * 3);
 
-//   case 2:
-//     newComputerChoice = "scissors";
-// }
+  switch (computerChoice) {
+    case 0:
+      computerChoice = "rock";
+      return computerChoice;
+
+    case 1:
+      computerChoice = "paper";
+      return computerChoice;
+
+    case 2:
+      computerChoice = "scissors";
+      return computerChoice;
+  }
+}
 
 function setUpGame(userChoice, newComputerChoice) {
+  newComputerChoice = getComputerChoice();
   if (
     choices.includes(userChoice.toLowerCase()) &&
     choices.includes(newComputerChoice)
@@ -78,14 +87,22 @@ function setUpGame(userChoice, newComputerChoice) {
 }
 
 function play(_userChoice, _newComputerChoice) {
-  while (userPoints < 5 || computerPoints < 5) {
+  let i = 0;
+  while (i < 5) {
     setUpGame(_userChoice, _newComputerChoice);
     console.log(`user points : ${userPoints}`);
     console.log(`computer points : ${computerPoints}`);
-    if (userPoints == 5 || computerPoints == 5) {
-      break;
-    }
+    i++;
+  }
+
+  if (userPoints > computerPoints) {
+    console.log("user wins");
+  } else if (computerPoints > userPoints) {
+    console.log("computer wins");
+  } else {
+    console.log("Tie!");
   }
 }
 
+console.log(getComputerChoice());
 play("paper", "scissors");
